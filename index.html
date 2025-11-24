@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的個人部落格</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #ffffff;
+            color: #2d3436;
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2d3436;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #0984e3;
+        }
+
+        img,
+        video,
+        iframe,
+        embed {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .header-container,
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #dfe6e9;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            color: #636e72;
+            font-weight: 500;
+        }
+
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: #0984e3;
+            margin-top: 8px;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            padding: 20px 0;
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .profile-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #0984e3;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .profile-desc {
+            color: #636e72;
+            max-width: 600px;
+        }
+
+        .timeline {
+            border-left: 2px solid #dfe6e9;
+            padding-left: 30px;
+            margin-left: 10px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            border: 3px solid #0984e3;
+            border-radius: 50%;
+
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: #0984e3;
+            font-size: 0.85rem;
+
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill-tag {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            border: 1px solid #dfe6e9;
+            border-radius: 50px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .skill-tag:hover {
+            border-color: #0984e3;
+            color: #0984e3;
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stars {
+            color: #fdcb6e;
+            font-size: 0.8rem;
+        }
+
+        /* 作品集 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-media {
+            background: #f8f9fa;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-caption {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        .tips-box {
+            background: #fff;
+            border: 1px solid #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 40px;
+        }
+
+        .tips-box summary {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .pdf-frame {
+            height: 500px;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .map-frame {
+            height: 400px;
+            border: 0;
+            border-radius: 8px;
+            filter: grayscale(100%);
+            transition: 0.3s;
+        }
+
+        .map-frame:hover {
+            filter: grayscale(0%);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #636e72;
+            font-size: 0.9rem;
+            border-top: 1px solid #dfe6e9;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+                font-size: 0.9rem;
+            }
+
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .section-title {
+                text-align: center;
+            }
+
+            .section-title h2::after {
+                margin: 8px auto 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-logo">My Blog<span style="color: #0984e3"> |</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#about">關於</a></li>
+                    <li><a href="#experience">經歷</a></li>
+                    <li><a href="#skills">技能</a></li>
+                    <li><a href="#portfolio">作品</a></li>
+                    <span style="color: #0984e3">|</span>
+                    <li><a href="#more">更多</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="about">
+            <div class="profile-container">
+                <img src="assets/images/avatar.jpg" alt="李翊豪" class="profile-img">
+                <div class="profile-content">
+                    <h1>李翊豪</h1>
+                    <span class="tagline">國立台北教育大學 | 資訊科學系 資二甲</span>
+                    <p class="profile-desc">
+                        嗨！我是 李翊豪。歡迎來到我的個人部落格。
+                        這裡記錄了我在程式開發路上的學習過程與作品。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="section-title">
+                <h2>學習經歷</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2024 - now</span>
+                    <div class="timeline-content">
+                        <h3>國立台北教育大學</h3>
+                        <p>資訊科學系 | 在讀</p>
+                        <p style="margin-top: 5px; font-size: 0.9rem;">努力學習中...</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2021 - 2024</span>
+                    <div class="timeline-content">
+                        <h3>XXX高中</h3>
+                        <p>學生 | 畢業</p>
+                        <p style="margin-top: 5px; font-size: 0.9rem;">深化學習、投入社團與活動，形成未來的志向。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2018 - 2021</span>
+                    <div class="timeline-content">
+                        <h3>YYY國中</h3>
+                        <p>學生 | 畢業</p>
+                        <p style="margin-top: 5px; font-size: 0.9rem;">適應高難度的學習、培養自律並開始摸索興趣。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">2012 - 2018</span>
+                    <div class="timeline-content">
+                        <h3>ZZZ國小</h3>
+                        <p>學生 | 畢業</p>
+                        <p style="margin-top: 5px; font-size: 0.9rem;">探索世界、培養基礎能力並建立良好
+                            人際互動。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="section-title">
+                <h2>專業技能</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skill-tag">
+                    Java <span class="stars">★★</span>
+                </div>
+                <div class="skill-tag">
+                    C++ <span class="stars">★★</span>
+                </div>
+                <div class="skill-tag">
+                    Python <span class="stars">★★</span>
+                </div>
+                <div class="skill-tag">
+                    Web Development <span class="stars">★★★</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="section-title">
+                <h2>精選作品</h2>
+            </div>
+            <div class="portfolio-grid">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">🎵 音樂創作</h3>
+                        <audio controls style="width: 100%; margin-top: 10px;">
+                            <source src="assets/audio/Virtual Waves.mp3" type="audio/mpeg">
+                            您的瀏覽器不支援 audio 元素。
+                        </audio>
+                        <p class="card-caption" style="margin-top: 10px;">Virtual Waves.mp3</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">🎵 音樂創作</h3>
+                        <audio controls style="width: 100%; margin-top: 10px;">
+                            <source src="assets/audio/Virtual Waves.mp3(1).mp3" type="audio/mpeg">
+                            您的瀏覽器不支援 audio 元素。
+                        </audio>
+                        <p class="card-caption" style="margin-top: 10px;">Virtual Waves(1).mp3</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">🎵 音樂創作</h3>
+                        <audio controls style="width: 100%; margin-top: 10px;">
+                            <source src="assets/audio/Lords of the Cart.mp3" type="audio/mpeg">
+                            您的瀏覽器不支援 audio 元素。
+                        </audio>
+                        <p class="card-caption" style="margin-top: 10px;">Lords of the Cart.mp3</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">🎵 音樂創作</h3>
+                        <audio controls style="width: 100%; margin-top: 10px;">
+                            <source src="assets/audio/Lords of the Cart.mp3(1)" type="audio/mpeg">
+                            您的瀏覽器不支援 audio 元素。
+                        </audio>
+                        <p class="card-caption" style="margin-top: 10px;">Lords of the Cart(1).mp3</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-media">
+                        <video controls>
+                            <source src="assets/videoXXX.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">視訊作品：XXX</h3>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-media">
+                        <video controls>
+                            <source src="assets/video/YYY.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">視訊作品：YYY</h3>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-media">
+                        <img src="assets/images/Taipei.png" alt="#">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">AI圖：台北</h3>
+                        <p class="card-caption">城市景色</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-media">
+                        <img src="assets/images/Japan.png" alt="#">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">AI圖：日本</h3>
+                        <p class="card-caption">自然風光</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-media">
+                        <img src="assets/images/NewYork.png" alt="#">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">AI圖：紐約</h3>
+                        <p class="card-caption">城市景色</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-media">
+                        <img src="assets/images/HongKong.png" alt="#">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">AI圖：香港</h3>
+                        <p class="card-caption">城市景色</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="more">
+            <div class="section-title">
+                <h2>更多資訊</h2>
+            </div>
+
+            <div class="tips-box">
+                <details>
+                    <summary>💡 點擊展開：今日學習小貼士</summary>
+                    <p style="margin-top: 15px; color: #555;">
+                        1. 建議攜帶筆記本與筆，方便隨時記錄課堂中的關鍵知識點與靈感。<br>
+                        2. 記得提前預習課程內容，並查詢相關資料以加深理解。
+                    </p>
+                </details>
+            </div>
+
+            <h3 style="margin-bottom: 15px; font-size: 1.1rem;">📄 研究文件 (PDF)</h3>
+            <embed src="assets/pdf/llm models.pdf" type="application/pdf" class="pdf-frame">
+
+            <h3 style="margin: 30px 0 15px; font-size: 1.1rem;">📍 我的位置</h3>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2784024338266!2d121.54206247541927!3d25.02462437782254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a908a8232611%3A0xeebfb2d71a5025c7!2z5ZyL56uL6Ie65YyX5pWZ6IKy5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1731827435609!5m2!1szh-TW!2stw"
+                class="map-frame" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>聯絡信箱：s111316016@stu.ntue.edu.tw</p>
+        <p style="margin-top: 5px;">© 202 Rick All Rights Reserved.</p>
+        <time datetime="2025-11-24" style="display: block; margin-top: 5px; opacity: 0.6;">最後更新：2025年11月24日</time>
+    </footer>
+
+</body>
+
+</html>
