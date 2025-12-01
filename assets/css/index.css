@@ -1,0 +1,449 @@
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.35);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --glass-blur: blur(12px);
+    --text-main: #2d3436;
+    --text-secondary: #636e72;
+    --accent-color: #0984e3;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-main);
+    line-height: 1.7;
+    /* 柔和的漸層背景，固定不隨卷軸移動 */
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-main);
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+img,
+video,
+iframe,
+embed {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 毛玻璃導航列 */
+header {
+    position: sticky;
+    top: 20px;
+    /* 稍微懸浮一點 */
+    margin: 0 auto 20px;
+    max-width: 95%;
+    /* 不佔滿全寬 */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    padding: 0.8rem 1.5rem;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+nav a {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    position: relative;
+    padding: 5px 0;
+}
+
+/* 導航連結的底線動畫 */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+main {
+    padding-bottom: 60px;
+}
+
+section {
+    padding: 60px 0;
+    /* 每個區塊稍微分開一點 */
+    margin-bottom: 20px;
+}
+
+.section-title {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.section-title h2 {
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+    color: #2d3436;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+/* 關於我 */
+.profile-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+    padding: 50px;
+
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.profile-content h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #2d3436, #0984e3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+    color: var(--accent-color);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.profile-desc {
+    color: var(--text-main);
+    font-size: 1.05rem;
+}
+
+/* 經歷 - 時間軸 */
+.timeline-container {
+    /* 包裹時間軸的毛玻璃區塊 */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.timeline {
+    border-left: 2px solid rgba(9, 132, 227, 0.3);
+    padding-left: 30px;
+    margin-left: 10px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -37px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: #dfe6e9;
+    border: 3px solid var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
+    transition: 0.3s;
+}
+
+.timeline-item:hover .timeline-dot {
+    background: var(--accent-color);
+    transform: scale(1.2);
+}
+
+.timeline-date {
+    font-weight: 700;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.timeline-content h3 {
+    margin-bottom: 5px;
+}
+
+/* 技能標籤 */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.skill-tag {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    padding: 12px 25px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: default;
+    font-weight: 500;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.skill-tag:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(9, 132, 227, 0.15);
+}
+
+.stars {
+    color: #fdcb6e;
+    font-size: 0.9rem;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 作品集 - 分類標題 */
+.portfolio-category {
+    margin-bottom: 60px;
+}
+
+.portfolio-category:last-child {
+    margin-bottom: 0;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    padding-left: 15px;
+    border-left: 4px solid var(--accent-color);
+    color: #2d3436;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    padding: 10px 15px;
+    border-radius: 0 10px 10px 0;
+    display: inline-block;
+}
+
+/* 作品集 - 毛玻璃卡片 */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.5);
+    /* hover 時更亮 */
+}
+
+.card-media {
+    background: rgba(0, 0, 0, 0.03);
+    /* 確保 iframe/video 容器有比例 */
+    position: relative;
+}
+
+/* 修正圖片在卡片中的顯示 */
+.card-media img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.card-caption {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* 更多資訊 - 提示框 */
+.glass-box {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.tips-box {
+    border-left: 5px solid #fdcb6e;
+    background: rgba(255, 248, 225, 0.6);
+    /* 稍微帶點黃色調的玻璃 */
+}
+
+.tips-box summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #d35400;
+}
+
+.pdf-frame {
+    height: 500px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.map-frame {
+    height: 400px;
+    width: 100%;
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    /* 移除黑白濾鏡，讓地圖更清晰 */
+    /* filter: grayscale(100%); */
+}
+
+/* 頁尾 */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 40px;
+}
+
+/* 響應式 */
+@media (max-width: 768px) {
+    header {
+        top: 10px;
+        padding: 1rem;
+    }
+
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        gap: 15px;
+        font-size: 0.9rem;
+    }
+
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        padding: 30px;
+    }
+
+    .profile-img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+}
